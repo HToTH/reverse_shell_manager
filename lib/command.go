@@ -41,7 +41,7 @@ func (co Command)Commall(args []string){
 	}
 }
 
-func ExecuteC(c *Client,comm string){
+func VerifySession(c *Client,comm string){
 	token := "afdaswerqerq342341234"
 	comm  = comm +"; echo "+"afdaswerqerq342341234"
 	if !c.Write(comm) {
@@ -51,6 +51,18 @@ func ExecuteC(c *Client,comm string){
 	result = strings.Replace(result,token,"",-1)
 	if !err{
 		Server.RemoveClient(c)
+	}
+}
+func ExecuteC(c *Client,comm string){
+	token := "afdaswerqerq342341234"
+	comm  = comm +"; echo "+"afdaswerqerq342341234"
+	if !c.Write(comm) {
+		Server.RemoveClient(c)
+	}
+	result,err := c.Read(token)
+	result = strings.Replace(result,token,"",-1)
+	if !err{
+		VerifySession(c,"id")
 	}
 	log.Print(result)
 }
